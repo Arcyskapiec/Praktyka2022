@@ -1,23 +1,83 @@
 function handleCalculatorForm(form){
-
-    let toDisplay = form.inputbox.value;
-    document.getElementById("calcResult").innerHTML = calculate(document.getElementById("x"), document.getElementById("y"));
+    //console.log(form.x.value);
+    //let toDisplay = form.inputbox.value;
+    document.getElementById("calcResult").innerHTML = calculate(form.x.value, form.y.value, form.operation.value);
 }
 
 function handlePalindromeForm(form){
 
-    let formValue = form.inputbox2.value;
-    document.getElementById("palindromeResult").innerHTML = palindrome(formValue);
+    //let formValue = form.inputbox2.value;
+    document.getElementById("palindromeResult").innerHTML = checkPalindrome(form.palindrome.value);
 }
 
-function calculate(x, y){
-    z = x + y;
+function calculate(x, y, o){
+    x = parseInt(x);
+    y = parseInt(y);
+    let z = 0;
+    switch (o) {
+        case "+":
+            z = x + y;
+            break;
+        
+        case "-":
+            z = x - y;
+            break;
+
+        case "/":
+            if (y == 0){
+                alert("can't divide by 0");
+                break;
+            }
+            z = x / y;
+            break;
+
+        case "*":
+            z = x * y;
+            break;
+
+        case "log":
+            z = Math.log(x) / Math.log(2);
+            break;
+
+        case "pow":
+            z = x;
+            z = power(x, y, z);
+            break;
+            
+
+        case "%":
+            z = x % y;
+            break;
+
+        default:
+            alert("error");
+            break;
+    }
     return z;
 }
 
-function palindrome(var1){
-    var1 = var1 + "!";
-    return var1;
+function power(x, y, z){
+    z = z * x;
+    y -= 1;
+    if(y = 0){
+        return z;
+    }
+    else{
+        return power(x, y, z);
+    }
+}
+
+function checkPalindrome(p){
+    let p2 = "";
+    for(let i = p.length; i >= 0; i--){
+        p2 += p.substr(i, 1);
+    }
+    if(p == p2){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 
 function handleAnagramForm(form){
