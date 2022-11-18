@@ -1,3 +1,7 @@
+const arr1 = [1, 5, 10, 15];
+const arr2 = [1, 1, 3, 3, 4, 4];
+const arr3 = ["Ala", "Robert", "Stanislaw"];
+
 function handleCalculatorForm(form){
     //console.log(form.x.value);
     //let toDisplay = form.inputbox.value;
@@ -36,7 +40,7 @@ function calculate(x, y, o){
             break;
 
         case "log":
-            z = Math.log(x) / Math.log(2);
+            z = log(x);
             break;
 
         case "pow":
@@ -56,10 +60,15 @@ function calculate(x, y, o){
     return z;
 }
 
+function log(n)
+{
+    return (n > 1) ? 1 + log(n / 2) : 0;
+}
+
 function power(x, y, z){
     z = z * x;
     y -= 1;
-    if(y = 0){
+    if(y == 1){
         return z;
     }
     else{
@@ -80,69 +89,42 @@ function checkPalindrome(p){
     }
 }
 
-function handleAnagramForm(form){
-
-    let word1 = form.inputbox3.value;
-    let word2 = form.inputbox4.value;
-    document.getElementById("anagramResult").innerHTML = anagram(word1, word2);
+function handleArrayForm(form){
+    document.getElementById("arrayResult").innerHTML = arrayFunction(form.arrayName.value);
 }
 
-function bubbleSort(arr){
-    
-    for(var i = 0; i < arr.length; i++){
-       
-        for(var j = 0; j < ( arr.length - i -1 ); j++){
-         
-            if(arr[j] > arr[j+1]){           
-                var temp = arr[j]
-                arr[j] = arr[j + 1]
-                arr[j+1] = temp
+function arrayFunction(arr){
+    let x, y;
+    //return eval(arr);
+    switch (typeof eval(arr)[0]){
+        case "number":
+            x = 0;
+            y = 0;
+            for(let i = 0; i < eval(arr).length; i++){
+                if(eval(arr)[i] > x){
+                    y = x;
+                    x = eval(arr)[i];
+                };
             }
-        }
-    }
-    return arr;
-}
+            break;
 
-function anagram(var1, var2) {
-    let word1 = [];
-    let word2 = [];
-    let flag = true;
-
-    word1ASCII = [];
-    word2ASCII = [];
-
-    word1 = var1.split('');
-    word2 = var2.split('');
-
-    if(word1.length == word2.length){
-        for(let i = 0; i < word1.length; i++){
-            word1ASCII[i] = word1[i].charCodeAt(0);
-        }
-
-        for(let i = 0; i < word2.length; i++){
-            word2ASCII[i] = word2[i].charCodeAt(0);
-        }
-
-        word1ASCII = bubbleSort(word1ASCII);
-        word2ASCII = bubbleSort(word2ASCII);
-
-        console.log(word1ASCII);
-        console.log(word2ASCII);
-
-
-        for(let i = 0; i < word1ASCII.length; i++){
-            if (word1ASCII[i] != word2ASCII[i]){
-                flag = false;
-                break;
+        case "string":
+            x = "";
+            y = "";
+            for(let i = 0; i < eval(arr).length; i++){
+                if(eval(arr)[i].length > x.length){
+                    y = x;
+                    x = eval(arr)[i];
+                };
             }
-        }
+            break;
+
+        default:
+            alert("lol");
+            break;
     }
-    else {
-        return false;
-    }
-    return flag;
+    return y;
 }
 
-console.log(anagram("siema", "siemb"));
-console.log("a".charCodeAt(0));
-console.log("b".charCodeAt(0));
+
+
